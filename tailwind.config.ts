@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'orbitron': ['Orbitron', 'monospace'],
+        'inter': ['Inter', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        'gradient-space': 'var(--gradient-space)',
+        'gradient-dyson': 'var(--gradient-dyson)',
+        'gradient-neural': 'var(--gradient-neural)',
+        'gradient-void': 'var(--gradient-void)',
+      },
+      boxShadow: {
+        'glow-primary': 'var(--glow-primary)',
+        'glow-accent': 'var(--glow-accent)',
+        'neural': 'var(--shadow-neural)',
+        'deep': 'var(--shadow-deep)',
+      },
+      transitionTimingFunction: {
+        'neural': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'smooth': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
       },
       borderRadius: {
         lg: "var(--radius)",
