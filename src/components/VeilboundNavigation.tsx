@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, PlayCircle, Users, MessageCircle } from 'lucide-react';
+import ShoppingCartComponent from './ShoppingCart';
 
 const VeilboundNavigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,6 +9,7 @@ const VeilboundNavigation = () => {
   const navItems = [
     { name: 'About', href: '#about' },
     { name: 'Features', href: '#features' },
+    { name: 'Shop', href: '#shop' },
     { name: 'Developer', href: '#developer' },
     { name: 'Community', href: '#community' },
     { name: 'Media', href: '#media' },
@@ -49,6 +51,7 @@ const VeilboundNavigation = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <ShoppingCartComponent />
             <Button 
               variant="outline" 
               size="sm" 
@@ -93,6 +96,9 @@ const VeilboundNavigation = () => {
                 </button>
               ))}
               <div className="pt-4 pb-2 space-y-2">
+                <div className="flex justify-center mb-2">
+                  <ShoppingCartComponent />
+                </div>
                 <Button 
                   variant="outline" 
                   size="sm" 
