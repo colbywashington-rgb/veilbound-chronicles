@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -25,15 +25,15 @@ const ShoppingCartComponent = () => {
     cvv: ''
   });
 
-  const handleQuantityChange = (id: string, newQuantity: number) => {
+  const handleQuantityChange = useCallback((id: string, newQuantity: number) => {
     updateQuantity(id, newQuantity);
-  };
+  }, [updateQuantity]);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = useCallback((field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     // Simulate order processing
     setTimeout(() => {
@@ -41,9 +41,9 @@ const ShoppingCartComponent = () => {
       clearCart();
       setShowCheckout(false);
     }, 2000);
-  };
+  }, [clearCart]);
 
-  const CartContent = () => {
+  const CartContent = useMemo(() => {
     if (orderComplete) {
       return (
         <div className="p-8 text-center space-y-6">
@@ -344,7 +344,7 @@ const ShoppingCartComponent = () => {
         </div>
       </div>
     );
-  };
+  }, [orderComplete, showCheckout, items, formData, handleInputChange, handleCheckout, handleQuantityChange, getTotalPrice, getTotalItems, clearCart, removeFromCart, setIsCartOpen]);
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
@@ -364,7 +364,7 @@ const ShoppingCartComponent = () => {
         <SheetHeader>
           <SheetTitle className="text-primary">Shopping Cart</SheetTitle>
         </SheetHeader>
-        <CartContent />
+        {CartContent}
       </SheetContent>
     </Sheet>
   );
