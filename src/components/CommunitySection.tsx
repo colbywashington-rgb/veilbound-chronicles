@@ -137,8 +137,17 @@ const CommunitySection = () => {
                     {feature.description}
                   </CardDescription>
                   <Button 
-                    className={feature.highlight ? 'btn-veilbound' : 'border-accent/50 hover:border-accent'} 
+                    className={feature.highlight ? 'btn-veilbound hover-scale' : 'border-accent/50 hover:border-accent hover-scale'} 
                     variant={feature.highlight ? 'default' : 'outline'}
+                    onClick={() => {
+                      const urls: Record<string, string> = {
+                        'Join Discord': 'https://placeholder-discord.com',
+                        'Subscribe to Updates': 'https://placeholder-newsletter.com',
+                        'Apply for Alpha': 'https://placeholder-alpha-signup.com',
+                        'Explore Lore': 'https://placeholder-lore-wiki.com'
+                      };
+                      window.open(urls[feature.cta], '_blank');
+                    }}
                   >
                     {feature.cta}
                     <ExternalLink className="w-4 h-4 ml-2" />
@@ -185,19 +194,39 @@ const CommunitySection = () => {
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-6 text-primary">Stay Connected</h3>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/30 hover:border-primary hover-scale"
+              onClick={() => window.open('https://placeholder-discord.com', '_blank')}
+            >
               <MessageCircle className="w-5 h-5 mr-2" />
               Discord
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/30 hover:border-primary hover-scale"
+              onClick={() => window.open('https://placeholder-twitter.com', '_blank')}
+            >
               <Twitter className="w-5 h-5 mr-2" />
               Twitter
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/30 hover:border-primary hover-scale"
+              onClick={() => window.open('https://placeholder-youtube.com', '_blank')}
+            >
               <Youtube className="w-5 h-5 mr-2" />
               YouTube
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/30 hover:border-primary hover-scale"
+              onClick={() => window.open('https://placeholder-newsletter.com', '_blank')}
+            >
               <Mail className="w-5 h-5 mr-2" />
               Newsletter
             </Button>

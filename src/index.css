@@ -173,4 +173,41 @@ All colors MUST be HSL. Inspired by deep space, neon tech, and dying stars.
                 radial-gradient(circle at 70% 80%, hsl(25 85% 65% / 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
+
+  /* Enhanced Interactive Elements */
+  .hover-scale {
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth scrolling for the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
 }

@@ -12,18 +12,29 @@ import {
 
 const VeilboundFooter = () => {
   const socialLinks = [
-    { icon: MessageCircle, label: 'Discord', href: '#' },
-    { icon: Twitter, label: 'Twitter', href: '#' },
-    { icon: Youtube, label: 'YouTube', href: '#' },
-    { icon: Github, label: 'GitHub', href: '#' },
+    { icon: MessageCircle, label: 'Discord', href: 'https://placeholder-discord.com' },
+    { icon: Twitter, label: 'Twitter', href: 'https://placeholder-twitter.com' },
+    { icon: Youtube, label: 'YouTube', href: 'https://placeholder-youtube.com' },
+    { icon: Github, label: 'GitHub', href: 'https://placeholder-github.com' },
   ];
 
   const quickLinks = [
     { label: 'Game Features', href: '#features' },
     { label: 'Developer', href: '#developer' },
     { label: 'Community', href: '#community' },
-    { label: 'Press Kit', href: '#' },
+    { label: 'Press Kit', href: 'https://placeholder-presskit.com' },
   ];
+
+  const handleLinkClick = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      window.open(href, '_blank');
+    }
+  };
 
   return (
     <footer className="bg-gradient-void/40 border-t border-border/50">
@@ -47,7 +58,11 @@ const VeilboundFooter = () => {
                 placeholder="Enter your email for updates"
                 className="flex-1 px-3 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <Button size="sm" className="btn-veilbound whitespace-nowrap">
+              <Button 
+                size="sm" 
+                className="btn-veilbound whitespace-nowrap hover-scale"
+                onClick={() => window.open('https://placeholder-newsletter-signup.com', '_blank')}
+              >
                 <Mail className="w-4 h-4 mr-2" />
                 Subscribe
               </Button>
@@ -60,12 +75,12 @@ const VeilboundFooter = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+                  <button
+                    onClick={() => handleLinkClick(link.href)}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm cursor-pointer hover:underline"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -78,15 +93,15 @@ const VeilboundFooter = () => {
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
                 return (
-                  <a
+                  <button
                     key={index}
-                    href={social.href}
-                    className="flex items-center text-muted-foreground hover:text-primary transition-colors duration-200 text-sm group"
+                    onClick={() => handleLinkClick(social.href)}
+                    className="flex items-center text-muted-foreground hover:text-primary transition-colors duration-200 text-sm group cursor-pointer hover-scale w-full text-left"
                   >
                     <IconComponent className="w-4 h-4 mr-3" />
                     {social.label}
                     <ExternalLink className="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
+                  </button>
                 );
               })}
             </div>
@@ -104,15 +119,24 @@ const VeilboundFooter = () => {
           </div>
           
           <div className="flex items-center space-x-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <button 
+              onClick={() => window.open('https://placeholder-privacy-policy.com', '_blank')}
+              className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
+            >
               Privacy Policy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            </button>
+            <button 
+              onClick={() => window.open('https://placeholder-terms.com', '_blank')}
+              className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
+            >
               Terms of Service
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            </button>
+            <button 
+              onClick={() => window.open('mailto:contact@veilbound-placeholder.com')}
+              className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
+            >
               Contact
-            </a>
+            </button>
           </div>
         </div>
 

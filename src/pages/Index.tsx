@@ -1,5 +1,6 @@
 import VeilboundNavigation from '@/components/VeilboundNavigation';
 import VeilboundHero from '@/components/VeilboundHero';
+import AboutVeilbound from '@/components/AboutVeilbound';
 import GameplayFeatures from '@/components/GameplayFeatures';
 import DeveloperSection from '@/components/DeveloperSection';
 import CommunitySection from '@/components/CommunitySection';
@@ -11,6 +12,7 @@ const Index = () => {
       <VeilboundNavigation />
       <main>
         <VeilboundHero />
+        <AboutVeilbound />
         <GameplayFeatures />
         <DeveloperSection />
         <CommunitySection />

@@ -137,15 +137,30 @@ const DeveloperSection = () => {
             <div>
               <h4 className="font-semibold text-lg mb-4">Connect & Follow Development</h4>
               <div className="flex flex-wrap gap-3">
-                <Button variant="outline" size="sm" className="border-primary/30">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-primary/30 hover-scale"
+                  onClick={() => window.open('https://placeholder-twitter.com', '_blank')}
+                >
                   <Twitter className="w-4 h-4 mr-2" />
                   Twitter
                 </Button>
-                <Button variant="outline" size="sm" className="border-primary/30">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-primary/30 hover-scale"
+                  onClick={() => window.open('https://placeholder-github.com', '_blank')}
+                >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
                 </Button>
-                <Button variant="outline" size="sm" className="border-primary/30">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-primary/30 hover-scale"
+                  onClick={() => window.open('mailto:developer@veilbound-placeholder.com')}
+                >
                   <Mail className="w-4 h-4 mr-2" />
                   Email
                 </Button>

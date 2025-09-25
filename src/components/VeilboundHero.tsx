@@ -59,11 +59,20 @@ const VeilboundHero = () => {
 
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button size="lg" className="btn-veilbound text-lg px-8 py-6">
+            <Button 
+              size="lg" 
+              className="btn-veilbound text-lg px-8 py-6 hover-scale"
+              onClick={() => window.open('https://placeholder-gameplay-trailer.com', '_blank')}
+            >
               <Play className="w-5 h-5 mr-3" />
               Watch Gameplay Trailer
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/50 hover:border-primary text-lg px-8 py-6">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/50 hover:border-primary text-lg px-8 py-6 hover-scale"
+              onClick={() => window.open('https://placeholder-newsletter-signup.com', '_blank')}
+            >
               <Download className="w-5 h-5 mr-3" />
               Get Updates
             </Button>
@@ -78,11 +87,15 @@ const VeilboundHero = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+          {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="animate-bounce">
-            <ArrowDown className="w-6 h-6 text-primary" />
-          </div>
+          <button
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            className="animate-bounce hover:text-accent transition-colors cursor-pointer"
+            aria-label="Scroll to About section"
+          >
+            <ArrowDown className="w-6 h-6 text-primary hover:text-accent" />
+          </button>
         </div>
       </div>
     </section>
