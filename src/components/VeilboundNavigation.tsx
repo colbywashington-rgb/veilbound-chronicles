@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, PlayCircle, Users, MessageCircle } from 'lucide-react';
 import ShoppingCartComponent from './ShoppingCart';
+import JoinCommunityModal from './JoinCommunityModal';
 
 const VeilboundNavigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const navItems = [
@@ -62,7 +64,7 @@ const VeilboundNavigation = () => {
             </Button>
             <Button 
               className="btn-veilbound hover-scale"
-              onClick={() => navigate('/community')}
+              onClick={() => setIsJoinModalOpen(true)}
             >
               <Users className="w-4 h-4 mr-2" />
               Join Community
@@ -113,7 +115,7 @@ const VeilboundNavigation = () => {
                 <Button 
                   className="w-full btn-veilbound hover-scale"
                   onClick={() => {
-                    navigate('/community');
+                    setIsJoinModalOpen(true);
                     setIsMobileMenuOpen(false);
                   }}
                 >
@@ -125,6 +127,11 @@ const VeilboundNavigation = () => {
           </div>
         )}
       </div>
+      
+      <JoinCommunityModal 
+        isOpen={isJoinModalOpen} 
+        onClose={() => setIsJoinModalOpen(false)} 
+      />
     </nav>
   );
 };
