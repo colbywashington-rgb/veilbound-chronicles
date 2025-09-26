@@ -1,25 +1,24 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, PlayCircle, Users, MessageCircle } from 'lucide-react';
 import ShoppingCartComponent from './ShoppingCart';
 
 const VeilboundNavigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Features', href: '#features' },
-    { name: 'Shop', href: '#shop' },
-    { name: 'Developer', href: '#developer' },
-    { name: 'Community', href: '#community' },
-    { name: 'Media', href: '#media' },
+    { name: 'About', href: '/about' },
+    { name: 'Features', href: '/features' },
+    { name: 'Shop', href: '/shop' },
+    { name: 'Developer', href: '/developer' },
+    { name: 'Community', href: '/community' },
+    { name: 'Media', href: '/media' },
   ];
 
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    navigate(href);
     setIsMobileMenuOpen(false);
   };
 
@@ -29,9 +28,9 @@ const VeilboundNavigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-dyson bg-clip-text text-transparent">
+            <Link to="/" className="text-2xl font-bold bg-gradient-dyson bg-clip-text text-transparent hover:opacity-80 transition-opacity">
               VEILBOUND
-            </h1>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -56,14 +55,14 @@ const VeilboundNavigation = () => {
               variant="outline" 
               size="sm" 
               className="border-primary/30 hover:border-primary hover-scale"
-              onClick={() => window.open('https://placeholder-trailer-link.com', '_blank')}
+              onClick={() => navigate('/media')}
             >
               <PlayCircle className="w-4 h-4 mr-2" />
               Watch Trailer
             </Button>
             <Button 
               className="btn-veilbound hover-scale"
-              onClick={() => window.open('https://placeholder-discord-link.com', '_blank')}
+              onClick={() => navigate('/community')}
             >
               <Users className="w-4 h-4 mr-2" />
               Join Community
@@ -103,14 +102,20 @@ const VeilboundNavigation = () => {
                   variant="outline" 
                   size="sm" 
                   className="w-full hover-scale"
-                  onClick={() => window.open('https://placeholder-trailer-link.com', '_blank')}
+                  onClick={() => {
+                    navigate('/media');
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <PlayCircle className="w-4 h-4 mr-2" />
                   Watch Trailer
                 </Button>
                 <Button 
                   className="w-full btn-veilbound hover-scale"
-                  onClick={() => window.open('https://placeholder-discord-link.com', '_blank')}
+                  onClick={() => {
+                    navigate('/community');
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Join Community
