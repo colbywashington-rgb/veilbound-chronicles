@@ -1,6 +1,12 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 import { 
   MessageCircle, 
   Users, 
@@ -11,10 +17,25 @@ import {
   ExternalLink,
   Calendar,
   Gamepad2,
-  BookOpen
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  Send,
+  UserPlus
 } from 'lucide-react';
 
 const CommunitySection = () => {
+  const [showJoinForm, setShowJoinForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    contactMethod: '',
+    interests: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   const communityStats = [
     { label: "Discord Members", value: "1,247", icon: MessageCircle },
     { label: "Newsletter Subscribers", value: "3,892", icon: Mail },
@@ -76,6 +97,35 @@ const CommunitySection = () => {
     }
   ];
 
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Welcome to the Community!",
+        description: `Thanks ${formData.name || 'explorer'}! We'll be in touch soon.`,
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        contactMethod: '',
+        interests: '',
+        message: ''
+      });
+      setShowJoinForm(false);
+      setIsSubmitting(false);
+    }, 1500);
+  };
+
   return (
     <section id="community" className="py-24 section-space">
       <div className="container mx-auto px-4">
@@ -103,6 +153,175 @@ const CommunitySection = () => {
               </Card>
             );
           })}
+        </div>
+
+        {/* Join Community Form */}
+        <div className="mb-16">
+          <Card className="bg-gradient-neural/20 border-primary/30 shadow-neural overflow-hidden">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-lg bg-primary/20">
+                    <UserPlus className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Join Our Community</CardTitle>
+                    <CardDescription>
+                      Connect with us and get exclusive updates, early access, and more!
+                    </CardDescription>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowJoinForm(!showJoinForm)}
+                  className="border-primary/30 hover:border-primary"
+                >
+                  {showJoinForm ? (
+                    <>
+                      <ChevronUp className="w-4 h-4 mr-2" />
+                      Hide Form
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-4 mr-2" />
+                      Show Form
+                    </>
+                  )}
+                </Button>
+              </div>
+            </CardHeader>
+            
+            {showJoinForm && (
+              <CardContent className="animate-fade-in">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-sm font-medium">
+                        Name *
+                      </Label>
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Your name"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                        className="bg-background/50 border-border/50 focus:border-primary"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-sm font-medium">
+                        Email *
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                        className="bg-background/50 border-border/50 focus:border-primary"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-sm font-medium">
+                        Phone Number (Optional)
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 123-4567"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        className="bg-background/50 border-border/50 focus:border-primary"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="contactMethod" className="text-sm font-medium">
+                        Preferred Contact Method
+                      </Label>
+                      <Select onValueChange={(value) => handleInputChange('contactMethod', value)}>
+                        <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+                          <SelectValue placeholder="Select contact method" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-card border-border z-50">
+                          <SelectItem value="email">Email</SelectItem>
+                          <SelectItem value="phone">Phone</SelectItem>
+                          <SelectItem value="discord">Discord</SelectItem>
+                          <SelectItem value="newsletter">Newsletter Only</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="interests" className="text-sm font-medium">
+                      What interests you most about Veilbound?
+                    </Label>
+                    <Select onValueChange={(value) => handleInputChange('interests', value)}>
+                      <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+                        <SelectValue placeholder="Select your primary interest" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-card border-border z-50">
+                        <SelectItem value="alpha-testing">Alpha Testing</SelectItem>
+                        <SelectItem value="development-updates">Development Updates</SelectItem>
+                        <SelectItem value="community-events">Community Events</SelectItem>
+                        <SelectItem value="lore-worldbuilding">Lore & Worldbuilding</SelectItem>
+                        <SelectItem value="gameplay-mechanics">Gameplay Mechanics</SelectItem>
+                        <SelectItem value="early-access">Early Access</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm font-medium">
+                      Additional Message (Optional)
+                    </Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us what excites you most about Veilbound, or ask any questions..."
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      rows={4}
+                      className="bg-background/50 border-border/50 focus:border-primary resize-none"
+                    />
+                  </div>
+                  
+                  <div className="flex justify-end pt-4">
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting || !formData.name || !formData.email}
+                      className="btn-veilbound hover-scale min-w-32"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center">
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                          Joining...
+                        </div>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Join Community
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+                
+                <div className="mt-6 pt-6 border-t border-border/30">
+                  <p className="text-xs text-muted-foreground text-center">
+                    By joining, you agree to receive updates about Veilbound. You can unsubscribe at any time.
+                    <br />
+                    <span className="text-primary">This is a demo form - no real data is collected.</span>
+                  </p>
+                </div>
+              </CardContent>
+            )}
+          </Card>
         </div>
 
         {/* Community Features Grid */}
