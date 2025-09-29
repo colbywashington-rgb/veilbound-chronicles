@@ -1,0 +1,4 @@
+project_id = "nwbjhylelucufopuorsa"
+
+[functions.veilbound-assistant]
+verify_jwt = false
