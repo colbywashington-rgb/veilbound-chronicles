@@ -532,11 +532,17 @@ const ShoppingCartComponent = () => {
             <Card key={item.id} className="card-neural">
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
-                  <img 
-                    src={item.image} 
-                    alt={item.name}
-                    className="w-16 h-16 object-cover rounded-md"
-                  />
+                  {item.image ? (
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-md bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                      <CreditCard className="w-8 h-8 text-primary/60" />
+                    </div>
+                  )}
                   <div className="flex-1">
                     <h4 className="font-semibold text-sm">{item.name}</h4>
                     <p className="text-primary font-bold">${item.price}</p>

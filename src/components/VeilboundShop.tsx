@@ -5,7 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ShoppingCart, Star, Calendar, Gamepad2, Download, Gift, ShirtIcon, CreditCard, Sparkles } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useState } from 'react';
-import veilboundHero from '@/assets/veilbound-hero.jpg';
+import veilboundGameCover from '@/assets/veilbound-game-cover.jpg';
+import merchLogoTshirt from '@/assets/merch-logo-tshirt.jpg';
+import merchDiverTshirt from '@/assets/merch-diver-tshirt.jpg';
+import merchDysonTshirt from '@/assets/merch-dyson-tshirt.jpg';
 
 const VeilboundShop = () => {
   const { addToCart } = useCart();
@@ -17,7 +20,7 @@ const VeilboundShop = () => {
     name: 'Veilbound - Digital Deluxe Edition',
     price: 59.99,
     originalPrice: 79.99,
-    image: veilboundHero,
+    image: veilboundGameCover,
     description: 'Pre-order Veilbound and dive into a sci-fi adventure across a mysterious Dyson ring. Use advanced traversal abilities to uncover lost memories and reshape the past.',
     features: [
       'Full Game Access on Release',
@@ -37,7 +40,7 @@ const VeilboundShop = () => {
       id: 'tshirt-logo',
       name: 'Veilbound Logo T-Shirt',
       price: 29.99,
-      image: veilboundHero,
+      image: merchLogoTshirt,
       description: 'Premium quality cotton t-shirt featuring the iconic Veilbound logo.',
       colors: ['Black', 'Navy', 'Charcoal', 'White'],
       sizes: ['S', 'M', 'L', 'XL', '2XL']
@@ -46,7 +49,7 @@ const VeilboundShop = () => {
       id: 'tshirt-diver',
       name: 'Veil Diver Character Tee',
       price: 32.99,
-      image: veilboundHero,
+      image: merchDiverTshirt,
       description: 'Show your love for the game with this exclusive character design t-shirt.',
       colors: ['Black', 'Navy', 'Dark Green'],
       sizes: ['S', 'M', 'L', 'XL', '2XL']
@@ -55,7 +58,7 @@ const VeilboundShop = () => {
       id: 'tshirt-dyson',
       name: 'Dyson Ring Explorer Shirt',
       price: 34.99,
-      image: veilboundHero,
+      image: merchDysonTshirt,
       description: 'Explore the mysteries in style with this premium explorer-themed shirt.',
       colors: ['Black', 'Slate Gray', 'Deep Blue'],
       sizes: ['S', 'M', 'L', 'XL', '2XL']
@@ -67,21 +70,18 @@ const VeilboundShop = () => {
       id: 'giftcard-25',
       name: 'Veilbound Gift Card - $25',
       price: 25.00,
-      image: veilboundHero,
       description: 'Perfect for any Veilbound fan. Can be used for games, DLC, or merchandise.'
     },
     {
       id: 'giftcard-50',
       name: 'Veilbound Gift Card - $50',
       price: 50.00,
-      image: veilboundHero,
       description: 'Give the gift of adventure. Redeemable for all Veilbound content.'
     },
     {
       id: 'giftcard-100',
       name: 'Veilbound Gift Card - $100',
       price: 100.00,
-      image: veilboundHero,
       description: 'The ultimate gift for the ultimate fan. Access to everything Veilbound.'
     }
   ];
@@ -114,7 +114,7 @@ const VeilboundShop = () => {
       id: giftCard.id,
       name: giftCard.name,
       price: giftCard.price,
-      image: giftCard.image,
+      image: '', // Gift cards use gradient backgrounds, not images
       description: giftCard.description
     });
   };
