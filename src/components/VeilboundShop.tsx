@@ -6,6 +6,7 @@ import { ShoppingCart, Star, Calendar, Gamepad2, Download, Gift, ShirtIcon, Cred
 import { useCart } from '@/contexts/CartContext';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import veilboundGameCover from '@/assets/veilbound-game-cover.jpg';
 
 interface MerchProduct {
@@ -20,31 +21,38 @@ interface MerchProduct {
 
 const VeilboundShop = () => {
   const { addToCart } = useCart();
+  const { toast } = useToast();
   const [selectedTshirtSize, setSelectedTshirtSize] = useState<{ [key: string]: string }>({});
   const [selectedTshirtColor, setSelectedTshirtColor] = useState<{ [key: string]: string }>({});
   const [merchProducts, setMerchProducts] = useState<MerchProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoadingMerch, setIsLoadingMerch] = useState(true);
 
   useEffect(() => {
+    const fetchMerchProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('merch_products')
+          .select('*')
+          .eq('is_active', true)
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+        
+        setMerchProducts(data || []);
+      } catch (error) {
+        console.error('Error fetching merchandise:', error);
+        toast({
+          title: "Error loading merchandise",
+          description: "Could not load products. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoadingMerch(false);
+      }
+    };
+
     fetchMerchProducts();
-  }, []);
-
-  const fetchMerchProducts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('merch_products')
-        .select('*')
-        .eq('is_active', true)
-        .order('created_at', { ascending: true });
-
-      if (error) throw error;
-      setMerchProducts(data || []);
-    } catch (error) {
-      console.error('Error fetching merch products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [toast]);
 
   const gameProduct = {
     id: 'veilbound-preorder',
@@ -65,7 +73,6 @@ const VeilboundShop = () => {
     releaseDate: 'Q3 2024',
     preorderBonus: 'Quantum Traveler Skin Pack'
   };
-
 
   const giftCards = [
     {
@@ -245,80 +252,82 @@ const VeilboundShop = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {loading ? (
-              <div className="col-span-full text-center py-8">
+            {isLoadingMerch ? (
+              <div className="col-span-full text-center py-12">
                 <p className="text-muted-foreground">Loading merchandise...</p>
               </div>
             ) : merchProducts.length === 0 ? (
-              <div className="col-span-full text-center py-8">
-                <p className="text-muted-foreground">No merchandise available at this time.</p>
+              <div className="col-span-full text-center py-12">
+                <p className="text-muted-foreground">No merchandise available at the moment.</p>
               </div>
-            ) : merchProducts.map((merch) => (
-              <Card key={merch.id} className="card-neural hover-scale animate-fade-in">
-                <CardHeader>
-                  <div className="relative mb-4">
-                    <img 
-                      src={merch.image_url} 
-                      alt={merch.name}
-                      className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <Badge className="absolute top-2 right-2 bg-primary/90">
-                      New
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-xl">{merch.name}</CardTitle>
-                  <div className="text-2xl font-bold text-primary">${merch.price}</div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <CardDescription>{merch.description}</CardDescription>
-                  
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">Size</label>
-                      <Select 
-                        value={selectedTshirtSize[merch.id] || merch.sizes[0]}
-                        onValueChange={(value) => setSelectedTshirtSize(prev => ({ ...prev, [merch.id]: value }))}
-                      >
-                        <SelectTrigger className="bg-input/50">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {merch.sizes.map((size) => (
-                            <SelectItem key={size} value={size}>{size}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+            ) : (
+              merchProducts.map((merch) => (
+                <Card key={merch.id} className="card-neural hover-scale animate-fade-in">
+                  <CardHeader>
+                    <div className="relative mb-4">
+                      <img 
+                        src={merch.image_url} 
+                        alt={merch.name}
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      <Badge className="absolute top-2 right-2 bg-primary/90">
+                        New
+                      </Badge>
                     </div>
+                    <CardTitle className="text-xl">{merch.name}</CardTitle>
+                    <div className="text-2xl font-bold text-primary">${merch.price}</div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <CardDescription>{merch.description}</CardDescription>
                     
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">Color</label>
-                      <Select 
-                        value={selectedTshirtColor[merch.id] || merch.colors[0]}
-                        onValueChange={(value) => setSelectedTshirtColor(prev => ({ ...prev, [merch.id]: value }))}
-                      >
-                        <SelectTrigger className="bg-input/50">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {merch.colors.map((color) => (
-                            <SelectItem key={color} value={color}>{color}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Size</label>
+                        <Select 
+                          value={selectedTshirtSize[merch.id] || merch.sizes[0]}
+                          onValueChange={(value) => setSelectedTshirtSize(prev => ({ ...prev, [merch.id]: value }))}
+                        >
+                          <SelectTrigger className="bg-input/50">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {merch.sizes.map((size) => (
+                              <SelectItem key={size} value={size}>{size}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Color</label>
+                        <Select 
+                          value={selectedTshirtColor[merch.id] || merch.colors[0]}
+                          onValueChange={(value) => setSelectedTshirtColor(prev => ({ ...prev, [merch.id]: value }))}
+                        >
+                          <SelectTrigger className="bg-input/50">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {merch.colors.map((color) => (
+                              <SelectItem key={color} value={color}>{color}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button 
-                    className="w-full btn-veilbound"
-                    onClick={() => handleAddMerchToCart(merch)}
-                  >
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                  </CardContent>
+                  <CardFooter>
+                    <Button 
+                      className="w-full btn-veilbound"
+                      onClick={() => handleAddMerchToCart(merch)}
+                    >
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Add to Cart
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))
+            )}
           </div>
         </div>
 
