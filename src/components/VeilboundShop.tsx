@@ -4,16 +4,47 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingCart, Star, Calendar, Gamepad2, Download, Gift, ShirtIcon, CreditCard, Sparkles } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import veilboundGameCover from '@/assets/veilbound-game-cover.jpg';
-import merchLogoTshirt from '@/assets/merch-logo-tshirt.jpg';
-import merchDiverTshirt from '@/assets/merch-diver-tshirt.jpg';
-import merchDysonTshirt from '@/assets/merch-dyson-tshirt.jpg';
+
+interface MerchProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  colors: string[];
+  sizes: string[];
+}
 
 const VeilboundShop = () => {
   const { addToCart } = useCart();
   const [selectedTshirtSize, setSelectedTshirtSize] = useState<{ [key: string]: string }>({});
   const [selectedTshirtColor, setSelectedTshirtColor] = useState<{ [key: string]: string }>({});
+  const [merchProducts, setMerchProducts] = useState<MerchProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMerchProducts();
+  }, []);
+
+  const fetchMerchProducts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('merch_products')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: true });
+
+      if (error) throw error;
+      setMerchProducts(data || []);
+    } catch (error) {
+      console.error('Error fetching merch products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const gameProduct = {
     id: 'veilbound-preorder',
@@ -35,35 +66,6 @@ const VeilboundShop = () => {
     preorderBonus: 'Quantum Traveler Skin Pack'
   };
 
-  const merchProducts = [
-    {
-      id: 'tshirt-logo',
-      name: 'Veilbound Logo T-Shirt',
-      price: 29.99,
-      image: merchLogoTshirt,
-      description: 'Premium quality cotton t-shirt featuring the iconic Veilbound logo.',
-      colors: ['Black', 'Navy', 'Charcoal', 'White'],
-      sizes: ['S', 'M', 'L', 'XL', '2XL']
-    },
-    {
-      id: 'tshirt-diver',
-      name: 'Veil Diver Character Tee',
-      price: 32.99,
-      image: merchDiverTshirt,
-      description: 'Show your love for the game with this exclusive character design t-shirt.',
-      colors: ['Black', 'Navy', 'Dark Green'],
-      sizes: ['S', 'M', 'L', 'XL', '2XL']
-    },
-    {
-      id: 'tshirt-dyson',
-      name: 'Dyson Ring Explorer Shirt',
-      price: 34.99,
-      image: merchDysonTshirt,
-      description: 'Explore the mysteries in style with this premium explorer-themed shirt.',
-      colors: ['Black', 'Slate Gray', 'Deep Blue'],
-      sizes: ['S', 'M', 'L', 'XL', '2XL']
-    }
-  ];
 
   const giftCards = [
     {
@@ -96,7 +98,7 @@ const VeilboundShop = () => {
     });
   };
 
-  const handleAddMerchToCart = (merch: typeof merchProducts[0]) => {
+  const handleAddMerchToCart = (merch: MerchProduct) => {
     const size = selectedTshirtSize[merch.id] || merch.sizes[0];
     const color = selectedTshirtColor[merch.id] || merch.colors[0];
     
@@ -104,7 +106,7 @@ const VeilboundShop = () => {
       id: `${merch.id}-${size}-${color}`,
       name: `${merch.name} (${size}, ${color})`,
       price: merch.price,
-      image: merch.image,
+      image: merch.image_url,
       description: merch.description
     });
   };
@@ -243,12 +245,20 @@ const VeilboundShop = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {merchProducts.map((merch) => (
+            {loading ? (
+              <div className="col-span-full text-center py-8">
+                <p className="text-muted-foreground">Loading merchandise...</p>
+              </div>
+            ) : merchProducts.length === 0 ? (
+              <div className="col-span-full text-center py-8">
+                <p className="text-muted-foreground">No merchandise available at this time.</p>
+              </div>
+            ) : merchProducts.map((merch) => (
               <Card key={merch.id} className="card-neural hover-scale animate-fade-in">
                 <CardHeader>
                   <div className="relative mb-4">
                     <img 
-                      src={merch.image} 
+                      src={merch.image_url} 
                       alt={merch.name}
                       className="w-full h-48 object-cover rounded-lg"
                     />

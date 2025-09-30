@@ -11,6 +11,7 @@ import Shop from "./pages/Shop";
 import Developer from "./pages/Developer";
 import Community from "./pages/Community";
 import Media from "./pages/Media";
+import AdminMerch from "./pages/AdminMerch";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/developer" element={<Developer />} />
           <Route path="/community" element={<Community />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/admin/merch" element={<AdminMerch />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
