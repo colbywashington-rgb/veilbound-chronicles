@@ -2,27 +2,23 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { 
   MessageCircle, 
-  Twitter, 
   Youtube, 
   Mail, 
-  Github,
   ExternalLink,
   Heart
 } from 'lucide-react';
 
 const VeilboundFooter = () => {
   const socialLinks = [
-    { icon: MessageCircle, label: 'Discord', href: 'https://placeholder-discord.com' },
-    { icon: Twitter, label: 'Twitter', href: 'https://placeholder-twitter.com' },
-    { icon: Youtube, label: 'YouTube', href: 'https://placeholder-youtube.com' },
-    { icon: Github, label: 'GitHub', href: 'https://placeholder-github.com' },
+    { icon: MessageCircle, label: 'Discord', href: 'https://discord.gg/veilbound' },
+    { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/channel/UCgw2XIxxFnPXolyAE_C3dvQ' },
   ];
 
   const quickLinks = [
     { label: 'Game Features', href: '#features' },
     { label: 'Developer', href: '#developer' },
     { label: 'Community', href: '#community' },
-    { label: 'Press Kit', href: 'https://placeholder-presskit.com' },
+    { label: 'Gallery', href: '#gallery' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -119,24 +115,18 @@ const VeilboundFooter = () => {
           </div>
           
           <div className="flex items-center space-x-6 text-sm">
-            <button 
-              onClick={() => window.open('https://placeholder-privacy-policy.com', '_blank')}
+            <a 
+              href="/privacy"
               className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
             >
               Privacy Policy
-            </button>
-            <button 
-              onClick={() => window.open('https://placeholder-terms.com', '_blank')}
-              className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
-            >
-              Terms of Service
-            </button>
-            <button 
-              onClick={() => window.open('mailto:contact@veilbound-placeholder.com')}
+            </a>
+            <a 
+              href="/contact"
               className="text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:underline"
             >
               Contact
-            </button>
+            </a>
           </div>
         </div>
 

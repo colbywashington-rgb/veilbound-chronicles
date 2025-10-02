@@ -22,8 +22,8 @@ const Media = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* Trailer Section */}
-                <div className="glass-card p-6 hover-scale">
+                {/* Trailer Section - Full Width */}
+                <div className="lg:col-span-3 glass-card p-6">
                   <div className="flex items-center mb-4">
                     <PlayCircle className="w-6 h-6 text-primary mr-2" />
                     <h3 className="text-xl font-semibold">Official Trailer</h3>
@@ -31,9 +31,15 @@ const Media = () => {
                   <p className="text-muted-foreground mb-4">
                     Watch the official gameplay trailer showcasing Veilbound's immersive world.
                   </p>
-                  <Button className="w-full btn-veilbound">
-                    Watch Trailer
-                  </Button>
+                  <div className="relative aspect-video rounded-lg overflow-hidden border border-border/50">
+                    <iframe
+                      className="w-full h-full"
+                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      title="Veilbound Official Trailer"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
 
                 {/* Screenshots */}
@@ -64,19 +70,6 @@ const Media = () => {
                   </Button>
                 </div>
 
-                {/* Press Kit */}
-                <div className="glass-card p-6 hover-scale lg:col-span-2">
-                  <div className="flex items-center mb-4">
-                    <Download className="w-6 h-6 text-primary mr-2" />
-                    <h3 className="text-xl font-semibold">Press Kit</h3>
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    Download our complete press kit including logos, screenshots, and official descriptions.
-                  </p>
-                  <Button className="btn-veilbound">
-                    Download Press Kit
-                  </Button>
-                </div>
               </div>
             </div>
           </section>

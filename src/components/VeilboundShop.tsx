@@ -2,12 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ShoppingCart, Star, Calendar, Gamepad2, Download, Gift, ShirtIcon, CreditCard, Sparkles } from 'lucide-react';
+import { ShoppingCart, Star, Calendar, Gamepad2, Download, Gift, ShirtIcon, CreditCard, Sparkles, Eye } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import veilboundGameCover from '@/assets/veilbound-game-cover.jpg';
+import ProductDetailModal from './ProductDetailModal';
 
 interface MerchProduct {
   id: string;
@@ -26,6 +27,8 @@ const VeilboundShop = () => {
   const [selectedTshirtColor, setSelectedTshirtColor] = useState<{ [key: string]: string }>({});
   const [merchProducts, setMerchProducts] = useState<MerchProduct[]>([]);
   const [isLoadingMerch, setIsLoadingMerch] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState<MerchProduct | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchMerchProducts = async () => {
@@ -105,17 +108,34 @@ const VeilboundShop = () => {
     });
   };
 
-  const handleAddMerchToCart = (merch: MerchProduct) => {
-    const size = selectedTshirtSize[merch.id] || merch.sizes[0];
-    const color = selectedTshirtColor[merch.id] || merch.colors[0];
+  const handleAddMerchToCart = (merch: MerchProduct, size?: string, color?: string) => {
+    const selectedSize = size || selectedTshirtSize[merch.id] || merch.sizes[0];
+    const selectedColor = color || selectedTshirtColor[merch.id] || merch.colors[0];
     
     addToCart({
-      id: `${merch.id}-${size}-${color}`,
-      name: `${merch.name} (${size}, ${color})`,
+      id: `${merch.id}-${selectedSize}-${selectedColor}`,
+      name: `${merch.name} (${selectedSize}, ${selectedColor})`,
       price: merch.price,
       image: merch.image_url,
       description: merch.description
     });
+    
+    toast({
+      title: "Added to cart!",
+      description: `${merch.name} has been added to your cart.`,
+    });
+  };
+
+  const handleViewDetails = (merch: MerchProduct) => {
+    setSelectedProduct(merch);
+    setIsModalOpen(true);
+  };
+
+  const handleAddToCartFromModal = (productId: string, size: string, color: string) => {
+    const product = merchProducts.find(p => p.id === productId);
+    if (product) {
+      handleAddMerchToCart(product, size, color);
+    }
   };
 
   const handleAddGiftCardToCart = (giftCard: typeof giftCards[0]) => {
@@ -316,9 +336,17 @@ const VeilboundShop = () => {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="flex gap-2">
                     <Button 
-                      className="w-full btn-veilbound"
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => handleViewDetails(merch)}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      Details
+                    </Button>
+                    <Button 
+                      className="flex-1 btn-veilbound"
                       onClick={() => handleAddMerchToCart(merch)}
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
@@ -380,6 +408,18 @@ const VeilboundShop = () => {
         </div>
 
       </div>
+
+      {selectedProduct && (
+        <ProductDetailModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          product={{
+            ...selectedProduct,
+            price: selectedProduct.price,
+          }}
+          onAddToCart={handleAddToCartFromModal}
+        />
+      )}
     </section>
   );
 };
