@@ -31,14 +31,19 @@ const Media = () => {
                   <p className="text-muted-foreground mb-4">
                     Watch the official gameplay trailer showcasing Veilbound's immersive world.
                   </p>
-                  <div className="relative aspect-video rounded-lg overflow-hidden border border-border/50">
-                    <iframe
-                      className="w-full h-full"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                      title="Veilbound Official Trailer"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                  <div className="relative aspect-video rounded-lg overflow-hidden border border-border/50 bg-muted/30 flex items-center justify-center">
+                    <div className="text-center p-8">
+                      <p className="text-muted-foreground mb-4">
+                        Watch gameplay videos and trailers on our YouTube channel
+                      </p>
+                      <Button 
+                        onClick={() => window.open('https://www.youtube.com/channel/UCgw2XIxxFnPXolyAE_C3dvQ', '_blank')}
+                        className="btn-veilbound"
+                      >
+                        <PlayCircle className="w-5 h-5 mr-2" />
+                        Visit YouTube Channel
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
