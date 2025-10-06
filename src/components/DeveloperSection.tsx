@@ -141,7 +141,7 @@ const DeveloperSection = () => {
                   variant="outline" 
                   size="sm" 
                   className="border-primary/30 hover-scale"
-                  onClick={() => window.open('https://placeholder-twitter.com', '_blank')}
+                  onClick={() => window.open('https://placeholder-twitter.com', '_blank', 'noopener,noreferrer')}
                 >
                   <Twitter className="w-4 h-4 mr-2" />
                   Twitter
@@ -150,7 +150,7 @@ const DeveloperSection = () => {
                   variant="outline" 
                   size="sm" 
                   className="border-primary/30 hover-scale"
-                  onClick={() => window.open('https://placeholder-github.com', '_blank')}
+                  onClick={() => window.open('https://placeholder-github.com', '_blank', 'noopener,noreferrer')}
                 >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
@@ -159,7 +159,7 @@ const DeveloperSection = () => {
                   variant="outline" 
                   size="sm" 
                   className="border-primary/30 hover-scale"
-                  onClick={() => window.open('mailto:developer@veilbound-placeholder.com')}
+                  onClick={() => window.open('mailto:veilbound91@gmail.com', '_blank', 'noopener,noreferrer')}
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   Email

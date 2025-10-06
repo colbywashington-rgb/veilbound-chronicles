@@ -78,7 +78,7 @@ const Media = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank')}
+                    onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank', 'noopener,noreferrer')}
                   >
                     Listen Now
                   </Button>

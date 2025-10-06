@@ -62,7 +62,7 @@ const VeilboundHero = () => {
             <Button 
               size="lg" 
               className="btn-veilbound text-lg px-8 py-6 hover-scale"
-              onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank')}
+              onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank', 'noopener,noreferrer')}
             >
               <Play className="w-5 h-5 mr-3" />
               Watch Gameplay Trailer
@@ -71,7 +71,7 @@ const VeilboundHero = () => {
               variant="outline" 
               size="lg" 
               className="border-primary/50 hover:border-primary text-lg px-8 py-6 hover-scale"
-              onClick={() => window.open('https://placeholder-newsletter-signup.com', '_blank')}
+              onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank', 'noopener,noreferrer')}
             >
               <Download className="w-5 h-5 mr-3" />
               Get Updates

@@ -11,7 +11,7 @@ import {
 const VeilboundFooter = () => {
   const socialLinks = [
     { icon: MessageCircle, label: 'Discord', href: 'https://discord.gg/veilbound' },
-    { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/channel/UCgw2XIxxFnPXolyAE_C3dvQ' },
+    { icon: Youtube, label: 'YouTube', href: 'https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm' },
   ];
 
   const quickLinks = [
@@ -28,7 +28,7 @@ const VeilboundFooter = () => {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
-      window.open(href, '_blank');
+      window.open(href, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -57,7 +57,7 @@ const VeilboundFooter = () => {
               <Button 
                 size="sm" 
                 className="btn-veilbound whitespace-nowrap hover-scale"
-                onClick={() => window.open('https://placeholder-newsletter-signup.com', '_blank')}
+                onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank', 'noopener,noreferrer')}
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Subscribe

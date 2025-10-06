@@ -365,7 +365,7 @@ const CommunitySection = () => {
                         'Apply for Alpha': 'https://placeholder-alpha-signup.com',
                         'Explore Lore': 'https://placeholder-lore-wiki.com'
                       };
-                      window.open(urls[feature.cta], '_blank');
+                      window.open(urls[feature.cta], '_blank', 'noopener,noreferrer');
                     }}
                   >
                     {feature.cta}
@@ -417,7 +417,7 @@ const CommunitySection = () => {
               variant="outline" 
               size="lg" 
               className="border-primary/30 hover:border-primary hover-scale"
-              onClick={() => window.open('https://placeholder-discord.com', '_blank')}
+              onClick={() => window.open('https://placeholder-discord.com', '_blank', 'noopener,noreferrer')}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
               Discord
@@ -426,7 +426,7 @@ const CommunitySection = () => {
               variant="outline" 
               size="lg" 
               className="border-primary/30 hover:border-primary hover-scale"
-              onClick={() => window.open('https://placeholder-twitter.com', '_blank')}
+              onClick={() => window.open('https://placeholder-twitter.com', '_blank', 'noopener,noreferrer')}
             >
               <Twitter className="w-5 h-5 mr-2" />
               Twitter
@@ -435,7 +435,7 @@ const CommunitySection = () => {
               variant="outline" 
               size="lg" 
               className="border-primary/30 hover:border-primary hover-scale"
-              onClick={() => window.open('https://placeholder-youtube.com', '_blank')}
+              onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank', 'noopener,noreferrer')}
             >
               <Youtube className="w-5 h-5 mr-2" />
               YouTube
@@ -444,7 +444,7 @@ const CommunitySection = () => {
               variant="outline" 
               size="lg" 
               className="border-primary/30 hover:border-primary hover-scale"
-              onClick={() => window.open('https://placeholder-newsletter.com', '_blank')}
+              onClick={() => window.open('https://placeholder-newsletter.com', '_blank', 'noopener,noreferrer')}
             >
               <Mail className="w-5 h-5 mr-2" />
               Newsletter
