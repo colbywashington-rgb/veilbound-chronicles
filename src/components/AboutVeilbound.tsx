@@ -22,7 +22,7 @@ const AboutVeilbound = () => {
 
           {/* Main Description */}
           <div className="bg-gradient-neural/10 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 mb-12 shadow-neural">
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed font-medium">
+            <p className="text-xl md:text-2xl leading-relaxed font-medium" style={{ color: '#FFFFFF' }}>
               Veilbound is a sci-fi open-world exploration game where players use advanced traversal abilities 
               to uncover lost memories, engage with complex factions, and reshape a mysterious Dyson ring's 
               fractured past and present.
@@ -32,20 +32,20 @@ const AboutVeilbound = () => {
           {/* Key Highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="card-neural p-6 rounded-xl text-center hover-scale transition-all duration-300">
-              <h3 className="text-xl font-bold text-primary mb-3">Open-World Exploration</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#FFFFFF' }}>Open-World Exploration</h3>
+              <p className="text-lg" style={{ color: '#FFFFFF' }}>
                 Traverse a vast ancient Dyson ring with complete freedom of movement
               </p>
             </div>
             <div className="card-neural p-6 rounded-xl text-center hover-scale transition-all duration-300">
-              <h3 className="text-xl font-bold text-primary mb-3">Advanced Traversal</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#FFFFFF' }}>Advanced Traversal</h3>
+              <p className="text-lg" style={{ color: '#FFFFFF' }}>
                 Master unique abilities like void-shift dashing and anti-gravity movement
               </p>
             </div>
             <div className="card-neural p-6 rounded-xl text-center hover-scale transition-all duration-300">
-              <h3 className="text-xl font-bold text-primary mb-3">Complex Factions</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#FFFFFF' }}>Complex Factions</h3>
+              <p className="text-lg" style={{ color: '#FFFFFF' }}>
                 Build relationships and alliances that shape the world around you
               </p>
             </div>

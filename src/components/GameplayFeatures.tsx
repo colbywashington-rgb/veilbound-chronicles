@@ -9,9 +9,16 @@ import {
   Waves,
   Shield
 } from 'lucide-react';
+import { useState } from 'react';
 import gameplayImage from '@/assets/gameplay-traversal.jpg';
+import veilboundCover from '@/assets/veilbound-game-cover.jpg';
+import veilboundHero from '@/assets/veilbound-hero.jpg';
+import diverCharacter from '@/assets/veil-diver-character.jpg';
+import ImageLightbox from '@/components/ImageLightbox';
 
 const GameplayFeatures = () => {
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
+
   const features = [
     {
       icon: Zap,
@@ -179,25 +186,74 @@ const GameplayFeatures = () => {
 
         {/* Image Gallery Section */}
         <div id="gallery" className="mt-16">
-          <h3 className="text-2xl font-bold text-center mb-8 text-primary">
+          <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#FFFFFF' }}>
             Game Gallery
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group">
+            <div 
+              className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
+              onClick={() => setLightboxImage({ src: gameplayImage, alt: "Veilbound Gameplay - Advanced Traversal" })}
+            >
               <img
                 src={gameplayImage}
-                alt="Veilbound Screenshot 1"
+                alt="Veilbound Gameplay - Advanced Traversal"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
             </div>
-            <div className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group bg-gradient-void/40 flex items-center justify-center">
-              <p className="text-muted-foreground text-center p-8">More screenshots coming soon...</p>
+            <div 
+              className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
+              onClick={() => setLightboxImage({ src: veilboundCover, alt: "Veilbound - Game Cover Art" })}
+            >
+              <img
+                src={veilboundCover}
+                alt="Veilbound - Game Cover Art"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
             </div>
-            <div className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group bg-gradient-neural/20 flex items-center justify-center">
-              <p className="text-muted-foreground text-center p-8">Upload your captures here</p>
+            <div 
+              className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
+              onClick={() => setLightboxImage({ src: veilboundHero, alt: "Veilbound - Ancient Dyson Ring" })}
+            >
+              <img
+                src={veilboundHero}
+                alt="Veilbound - Ancient Dyson Ring"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </div>
+            <div 
+              className="relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
+              onClick={() => setLightboxImage({ src: diverCharacter, alt: "Veilbound - Veil Diver Character" })}
+            >
+              <img
+                src={diverCharacter}
+                alt="Veilbound - Veil Diver Character"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Lightbox Component */}
+        {lightboxImage && (
+          <ImageLightbox
+            isOpen={!!lightboxImage}
+            onClose={() => setLightboxImage(null)}
+            imageSrc={lightboxImage.src}
+            altText={lightboxImage.alt}
+          />
+        )}
       </div>
     </section>
   );

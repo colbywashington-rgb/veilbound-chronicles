@@ -31,19 +31,24 @@ const Media = () => {
                   <p className="text-muted-foreground mb-4">
                     Watch the official gameplay trailer showcasing Veilbound's immersive world.
                   </p>
-                  <div className="relative aspect-video rounded-lg overflow-hidden border border-border/50 bg-muted/30 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <p className="text-muted-foreground mb-4">
-                        Watch gameplay videos and trailers on our YouTube channel
-                      </p>
-                      <Button 
-                        onClick={() => window.open('https://www.youtube.com/channel/UCgw2XIxxFnPXolyAE_C3dvQ', '_blank')}
-                        className="btn-veilbound"
-                      >
-                        <PlayCircle className="w-5 h-5 mr-2" />
-                        Visit YouTube Channel
-                      </Button>
-                    </div>
+                  <div className="relative aspect-video rounded-lg overflow-hidden border border-border/50 bg-muted/30">
+                    <a 
+                      href="https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full h-full relative group cursor-pointer"
+                    >
+                      <img 
+                        src="https://img.youtube.com/vi/HGTUEdO7KJ8/maxresdefault.jpg"
+                        alt="Veilbound Official Trailer"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                        <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <PlayCircle className="w-12 h-12 text-white" />
+                        </div>
+                      </div>
+                    </a>
                   </div>
                 </div>
 
@@ -70,7 +75,11 @@ const Media = () => {
                   <p className="text-muted-foreground mb-4">
                     Listen to the atmospheric soundtrack composed for Veilbound.
                   </p>
-                  <Button variant="outline" className="w-full">
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => window.open('https://youtu.be/HGTUEdO7KJ8?si=Y1WpUiXTByiB3SOm', '_blank')}
+                  >
                     Listen Now
                   </Button>
                 </div>
