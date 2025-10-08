@@ -38,7 +38,7 @@ const CommunitySection = () => {
   const { toast } = useToast();
   const communityStats = [
     { label: "Discord Members", value: "1,247", icon: MessageCircle },
-    { label: "Newsletter Subscribers", value: "3,892", icon: Mail },
+    { label: "Newsletter Subscribers", value: "589", icon: Mail },
     { label: "Social Followers", value: "5,634", icon: Users },
   ];
 
@@ -54,7 +54,7 @@ const CommunitySection = () => {
       icon: Bell,
       title: "Development Updates",
       description: "Get weekly development blogs, behind-the-scenes content, and early access to gameplay footage.",
-      cta: "Subscribe to Updates",
+      cta: "Subscribe for Updates",
       highlight: false
     },
     {
@@ -76,7 +76,7 @@ const CommunitySection = () => {
   const upcomingEvents = [
     {
       title: "Developer Q&A Stream",
-      date: "Dec 15, 2024",
+      date: "Dec 28, 2025",
       time: "7:00 PM EST",
       platform: "Twitch",
       type: "Live Stream"
@@ -91,9 +91,9 @@ const CommunitySection = () => {
     {
       title: "Alpha Testing Phase 1",
       date: "Feb 2025",
-      time: "TBA",
+      time: "TBD",
       platform: "Discord",
-      type: "Closed Alpha"
+      type: "Closed Alpha MEMBERS ONLY"
     }
   ];
 
